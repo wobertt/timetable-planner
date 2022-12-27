@@ -9,7 +9,7 @@
 
 ### How do I make a new `.pickle` file?
 
-See `input_course_info.py` - Ask Robert for details.
+See `input_course_info.py` - details will be added soon.
 
 
 ### I don't like the timetable results. How can I improve them?
