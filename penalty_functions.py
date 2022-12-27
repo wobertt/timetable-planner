@@ -161,4 +161,4 @@ def get_friday_penalty(lectures: list[LectureSlot]) -> int:
 # Run the timetable generator
 if __name__ == "__main__":
     import timetable_generator_v2
-    timetable_generator_v2.main('robert_dec26.pickle')
+    timetable_generator_v2.main('cms_plus_copb51_cscb20.pickle')
