@@ -66,7 +66,7 @@ def get_lectures_on_day(lectures: list[LectureSlot], day: str) -> list[LectureSl
 def is_overlapping(lecture1: LectureSlot, lecture2: LectureSlot) -> bool:
     """Returns True iff lecture1 and lecture2 overlap.
     Note: if one lecture ends when another lecture starts,
-    they are considered to be back-to-back but NOT overlapping.
+    they are considered to be back to back but NOT overlapping.
     """
     return (lecture1.day_num == lecture2.day_num
             and lecture1.start_hour < lecture2.end_hour
@@ -86,7 +86,7 @@ def get_overlap_penalty(lectures: list[LectureSlot]) -> int:
 
 
 def is_b2b(lecture1: LectureSlot, lecture2: LectureSlot) -> bool:
-    """Return True iff lecture1 and lecture2 are back-to-back.
+    """Return True iff lecture1 and lecture2 are back to back.
     """
     return (lecture1.day_num == lecture2.day_num and
             (lecture1.start_hour == lecture2.end_hour or lecture2.start_hour == lecture1.end_hour))
