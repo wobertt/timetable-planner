@@ -92,5 +92,4 @@ def main(file_name: str) -> None:
 
 
 if __name__ == "__main__":
-    pass
-    # main('rachel_courses.pickle')
+    main('summer2023.pickle')
