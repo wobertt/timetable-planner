@@ -48,6 +48,11 @@ class LectureSlot:
         'Wednesday': 3,
         'Thursday': 4,
         'Friday': 5,
+        'Mon': 1,
+        'Tue': 2,
+        'Wed': 3,
+        'Thu': 4,
+        'Fri': 5,
     }
 
     def output_info(self) -> None:
