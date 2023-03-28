@@ -19,12 +19,16 @@ MAX_CONSIDERATION          (do not delete) maximum total penalty value for a sel
 
 MAX_CONSIDERATION = 5000
 OVERLAP_PENALTY = 5000
-B2B_PENALTY = 100
-EARLY_TUTORIAL_PENALTY = 5
-ONE_LECTURE_PENALTY = 1
-EARLY_PENALTY, EARLIEST_HOUR = 2, 11
-LATE_PENALTY, LATEST_HOUR = 10, 18
+B2B_PENALTY = 20
+EARLY_TUTORIAL_PENALTY = 20
+ONE_LECTURE_PENALTY = 0
+EARLY_PENALTY, EARLIEST_HOUR = 10, 11
+LATE_PENALTY, LATEST_HOUR = 2, 20
 FRIDAY_PENALTY = 0
+EMPTY_DAY_BONUS = -100
+
+EARLY_TUT_LIST = ("B07TUT", "B36TUT") # exceptions
+LATE_TUT_LIST = ("B24TUT", "B52TUT")
 
 # This is the only function that communicates with timetable_generator_v2.py. It cannot be deleted.
 # It can be freely modified as long as it is of the form list[LectureSlot] -> int
@@ -40,7 +44,7 @@ def get_total_penalty(lectures: list[LectureSlot]) -> int:
         + get_early_late_penalty(lectures)
         + get_early_tutorial_penalty(lectures)
         + get_one_lecture_penalty(lectures)
-        + get_friday_penalty(lectures)
+        + get_empty_day_bonus(lectures)
     )
 
 
@@ -115,7 +119,10 @@ def get_early_tutorial_penalty(lectures: list[LectureSlot]) -> int:
     tutorial_penalty = 0
     for lecture in lectures:
         if lecture.course_name.endswith('TUT'):
-            tutorial_penalty += distance_from_friday(lecture)
+            if lecture.course_name in EARLY_TUT_LIST:
+                tutorial_penalty += 5 - distance_from_friday(lecture)
+            else:
+                tutorial_penalty += distance_from_friday(lecture)
     return tutorial_penalty
 
 
@@ -150,6 +157,15 @@ def get_one_lecture_penalty(lectures: list[LectureSlot]) -> int:
     return day_penalty
 
 
+def get_empty_day_bonus(lectures: list[LectureSlot]) -> int:
+    """return EMPTY_DAY_BONUS if there is a day without any lectures.
+    """
+    for day in DAYS_OF_THE_WEEK:
+        if get_lectures_on_day(lectures, day) == 0:
+            return EMPTY_DAY_BONUS
+    return 0
+
+
 def get_friday_penalty(lectures: list[LectureSlot]) -> int:
     """Return FRIDAY_PENALTY if there is a lecture on Friday, and 0 otherwise.
     """
@@ -158,7 +174,9 @@ def get_friday_penalty(lectures: list[LectureSlot]) -> int:
     return 0
 
 
+'''
 # Run the timetable generator
 if __name__ == "__main__":
     import timetable_generator_v2
     timetable_generator_v2.main('cms_plus_copb51_cscb20.pickle')
+'''

@@ -35,7 +35,7 @@ def generate_all_selections(courses: CourseOptions) -> list[RatedCourseSelection
     for selection in product(*courses.values()):
         if str(selection) in processed_sets:
             continue
-        add_selection_results(all_selections, selection)
+        add_selection_results(all_selections, list(selection))
         processed_sets.add(str(selection))
     return all_selections
 
