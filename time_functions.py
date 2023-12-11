@@ -59,5 +59,5 @@ class LectureSlot:
         """
         Print a LectureSlot in the form COURSECODE - DayOfWeek: XXAM-XXPM
         """
-        print(f"{self.course_name} - {self.day_of_week}: "
+        print(f"{self.course_name} - {self.day_of_week[:3]}: "
               f"{convert_to_12h(self.start_hour)}-{convert_to_12h(self.end_hour)}")
